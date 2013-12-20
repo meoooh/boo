@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.utils.translation import ugettext as _
 
 from wl import models
 
