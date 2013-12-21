@@ -11,7 +11,7 @@ class OwlUserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'id', 'deviceId', 'userId', 'sex', 'birthday',
                 'password', 'password2', 'gcmId', 'ideaTypeAgeMax', 
                 'ideaTypeAgeMin', 'myVoice')
-        # read_only_fields = ('userId', 'deviceId',)
+        # read_only_fields = ('password',)
 
     def __init__(self, *args, **kwargs):
         # Don't pass the 'fields' arg up to the superclass

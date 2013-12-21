@@ -13,5 +13,5 @@ urlpatterns = patterns('wl',
 	# url(r'^users/(?P<pk>\d+)/?$', views.OwlUserCreateRetrieve),
 	url(r'', include(router.urls)),
 	url(r'', include('gcm.urls')),
-	url(r'^me/?$', views.OwlUserMe.as_view())
+	url(r'^me/?$', views.OwlUserMe)
 )

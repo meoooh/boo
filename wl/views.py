@@ -3,17 +3,36 @@ from django.utils.translation import ugettext as _
 
 from rest_framework import viewsets, status, mixins, generics, permissions
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, action
+from rest_framework.decorators import api_view, permission_classes
 
 from wl import models, serializers, custom_permissions
 
-class OwlUserMe(generics.RetrieveUpdateAPIView):
-    model = models.OwlUser
-    serializer_class = serializers.OwlUserSerializer
-    permission_classes  = (permissions.IsAuthenticated,)
+# class OwlUserMe(generics.RetrieveUpdateAPIView):
+#     model = models.OwlUser
+#     serializer_class = serializers.OwlUserSerializer
+#     permission_classes  = (permissions.IsAuthenticated,)
 
-    def get_object(self):
-        return self.request.user
+#     def get_object(self):
+#         return self.request.user
+
+@api_view(['GET', 'POST'])
+@permission_classes([permissions.IsAuthenticated,])
+def OwlUserMe(request):
+    if request.method == 'POST':
+        # import ipdb; ipdb.set_trace()
+        serializer = serializers.OwlUserSerializer(request.user,
+                                                    data=request.DATA,
+                                                    files=request.FILES,
+                                                    partial=True,
+        )
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200,)
+    else:
+        serializer = serializers.OwlUserSerializer(request.user)
+
+        return Response(serializer.data, status=200,)
 
 class OwlUserViewSet(viewsets.ModelViewSet):
     queryset = models.OwlUser.objects.all()
