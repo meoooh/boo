@@ -45,11 +45,14 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     # 'rest_framework_swagger',
     'gcm',
-    'django_extensions'
+    'django_extensions',
 )
 
 GCM_APIKEY = "AIzaSyDAF3IRxpoDYLENrpEYhIHJwZ2w13QO07Q"
 GCM_DEVICE_MODEL = 'wl.models.MyDevice'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'user_upload_files')
+MEDIA_URL = '/files/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

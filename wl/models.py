@@ -73,6 +73,9 @@ class OwlUser(AbstractBaseUser, PermissionsMixin):
     )
     gcmId = models.CharField(max_length=254, unique=True)
 
+    myVoice = models.FileField(upload_to='voice/%Y-%m-%d', blank=True,
+                                null=True,)
+
     creation = models.DateTimeField(auto_now_add=True)
     modification = models.DateTimeField(auto_now=True)
 

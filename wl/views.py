@@ -23,26 +23,26 @@ class OwlUserViewSet(viewsets.ModelViewSet):
             }
         )
 
-    def partial_update(self, request, *arg, **kwarg):
-        super(OwlUserViewSet, self).partial_update(request, *arg, **kwarg)
+    # def partial_update(self, request, *arg, **kwarg):
+    #     super(OwlUserViewSet, self).partial_update(request, *arg, **kwarg)
 
-        user = self.get_object()
+    #     user = self.get_object()
+    #     import ipdb; ipdb.set_trace()
+    #     maxAge = request.DATA.get('max')
+    #     minAge = request.DATA.get('min')
 
-        maxAge = request.DATA.get('max')
-        minAge = request.DATA.get('min')
-
-        serializer = serializers.OwlUserSerializer(user, 
-                                                data={
-                                                    'ideaTypeAgeMax': maxAge,
-                                                    'ideaTypeAgeMin': minAge,
-                                                },
-                                                partial=True
-        )
-        # import ipdb; ipdb.set_trace()
-        if serializer.is_valid():
-            # import ipdb; ipdb.set_trace()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+    #     serializer = serializers.OwlUserSerializer(user, 
+    #                                             data={
+    #                                                 'ideaTypeAgeMax': maxAge,
+    #                                                 'ideaTypeAgeMin': minAge,
+    #                                             },
+    #                                             partial=True
+    #     )
+    #     # import ipdb; ipdb.set_trace()
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=201)
+    #     return Response(serializer.errors, status=400)
 
 @api_view(['GET'])
 def isExist(request):
