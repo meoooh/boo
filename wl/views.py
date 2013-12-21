@@ -1,11 +1,19 @@
 from django.core import exceptions
 from django.utils.translation import ugettext as _
 
-from rest_framework import viewsets, status, mixins
+from rest_framework import viewsets, status, mixins, generics, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, action
 
 from wl import models, serializers, custom_permissions
+
+class OwlUserMe(generics.RetrieveUpdateAPIView):
+    model = models.OwlUser
+    serializer_class = serializers.OwlUserSerializer
+    permission_classes  = (permissions.IsAuthenticated,)
+
+    def get_object(self):
+        return self.request.user
 
 class OwlUserViewSet(viewsets.ModelViewSet):
     queryset = models.OwlUser.objects.all()
