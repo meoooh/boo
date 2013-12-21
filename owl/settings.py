@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     # 'rest_framework_swagger',
     'gcm',
+    'django_extensions'
 )
 
 GCM_APIKEY = "AIzaSyDAF3IRxpoDYLENrpEYhIHJwZ2w13QO07Q"
