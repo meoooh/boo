@@ -29,6 +29,7 @@ def OwlUserMe(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=200,)
+        return Response(serializer.errors, status=400)
     else:
         serializer = serializers.OwlUserSerializer(request.user)
 
