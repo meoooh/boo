@@ -12,6 +12,9 @@ class OwlUserViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.OwlUserSerializer
     permission_classes = [custom_permissions.IsOwnerOrReadOnly]
 
+    def list(self, request, *arg, **kwarg):
+        return Response({'detail': "Method 'GET' not allowed."})
+
     def retrieve(self, request, *arg, **kwarg):
         user = self.get_object()
 
