@@ -13,17 +13,19 @@ from django.template import defaultfilters as filters
 class Location(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
 
     creation = models.DateTimeField(auto_now_add=True)
     modification = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return filters.truncatechars(
-            str(self.latitude)+', '+str(self.longitude), 30
-        )
+            str(self.latitude)+', '+str(self.longitude), 30)
 
-class JJokji(models.Model):
+class Jjokji(models.Model):
     contents = models.CharField(max_length=141)
     writer = models.ForeignKey(settings.AUTH_USER_MODEL)
 
@@ -34,18 +36,23 @@ class JJokji(models.Model):
         return filters.truncatechars(self.contents, 30)
 
 class Booeonglee(models.Model):
-    name = models.CharField(max_length=254)
+    name = models.CharField(max_length=254, blank=True, null=True,)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL)
-    grab = generic.GenericForeignKey('content_type', 'object_id')
-
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
+    jjokji = models.OneToOneField(Jjokji, blank=True, null=True,)
 
     creation = models.DateTimeField(auto_now_add=True)
     modification = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
-        return self.name
+    # def __unicode__(self):
+    #     return self.pk
+
+class HouseOfBooeonglee(models.Model):
+    purposeOfUse = models.PositiveSmallIntegerField()
+    state = models.PositiveSmallIntegerField()
+    owner = models.OneToOneField(Booeonglee, blank=True, null=True,)
+
+    creation = models.DateTimeField(auto_now_add=True)
+    modification = models.DateTimeField(auto_now=True)
 
 class MyUserManager(BaseUserManager):
     def create(self, deviceId, userId, sex, birthday, gcmId, password):

@@ -9,4 +9,6 @@ class LocationAdmin(admin.ModelAdmin):
     list_display = ('latitude', 'longitude', 'user')
 
 admin.site.register(get_user_model(), MyUserAdmin)
-admin.site.register(models.Location, LocationAdmin)
+admin.site.register(models.Location)
+admin.site.register(models.Booeonglee)
+admin.site.register(models.HouseOfBooeonglee)

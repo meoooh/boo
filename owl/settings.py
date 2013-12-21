@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     # 'rest_framework_swagger',
     'django_extensions',
+    # 'gcm',
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'user_upload_files')
