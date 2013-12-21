@@ -15,6 +15,18 @@ from wl import models, serializers, custom_permissions
 #     def get_object(self):
 #         return self.request.user
 
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated,])
+def setLocation(request):
+    latitude = request.DATA.get('latitude')
+    longitude = request.DATA.get('longitude')
+
+    try:
+        request.user.location_set.create(latitude=latitude, longitude=longitude)
+    except:
+        return Response(status=400)
+    return Response(status=204)
+
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.IsAuthenticated,])
 def OwlUserMe(request):
