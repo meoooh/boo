@@ -44,7 +44,11 @@ INSTALLED_APPS = (
     'wl',
     'rest_framework.authtoken',
     # 'rest_framework_swagger',
+    'gcm',
 )
+
+GCM_APIKEY = "AIzaSyDAF3IRxpoDYLENrpEYhIHJwZ2w13QO07Q"
+GCM_DEVICE_MODEL = 'wl.models.MyDevice'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

@@ -9,4 +9,5 @@ router.register(r'users', views.OwlUserViewSet)
 
 urlpatterns = patterns('wl',
 	url(r'^', include(router.urls)),
+	url(r'', include('gcm.urls')),
 )

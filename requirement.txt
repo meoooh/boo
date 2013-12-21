@@ -2,3 +2,4 @@ Django==1.6.1
 South==0.8.4
 djangorestframework==2.3.10
 ipdb==0.8
+django-gcm==1.0.0

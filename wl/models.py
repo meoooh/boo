@@ -1,9 +1,16 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import (AbstractBaseUser, PermissionsMixin,
                                         BaseUserManager)
 from django.conf import settings
 from django.core import validators
+
+from gcm.models import AbstractDevice
+
+class MyDevice(AbstractDevice):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
 class MyUserManager(BaseUserManager):
     def create(self, deviceId, userId, sex, birthday, password):
@@ -46,7 +53,7 @@ class MyUserManager(BaseUserManager):
 class OwlUser(AbstractBaseUser, PermissionsMixin):
     deviceId = models.CharField(max_length=254, unique=True)
     userId = models.CharField(max_length=254, unique=True)
-    sex = models.BooleanField()
+    sex = models.BooleanField() # 왜 required fals인지 모르겠다...
     birthday = models.DateField()
     ideaTypeAgeMin = models.PositiveSmallIntegerField(
         validators=[
