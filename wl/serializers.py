@@ -8,8 +8,9 @@ class OwlUserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.OwlUser
-        fields = ('url', 'id', 'deviceId', 'userId', 'sex',
-                  'birthday', 'password', 'password2', 'gcmId',)
+        fields = ('url', 'id', 'deviceId', 'userId', 'sex', 'birthday',
+                'password', 'password2', 'gcmId', 'ideaTypeAgeMax', 
+                'ideaTypeAgeMin')
         # read_only_fields = ('userId', 'deviceId',)
 
     def __init__(self, *args, **kwargs):
@@ -63,9 +64,10 @@ class OwlUserSerializer(serializers.HyperlinkedModelSerializer):
 
     def validate_password2(self, attrs, source):
         # http://goo.gl/U7FGWZ
-        if attrs['password'] == attrs.pop('password2'):
-            return attrs
-        raise serializers.ValidationError(
-            _("The two password fields didn't match."),
-            code='password_mismatch',
-        )
+        if 'password' in attrs:
+            if attrs.get('password') == attrs.pop('password2'):
+                return attrs
+            raise serializers.ValidationError(
+                _("The two password fields didn't match."),
+                code='password_mismatch',
+            )
