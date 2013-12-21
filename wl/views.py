@@ -18,7 +18,7 @@ from wl import models, serializers, custom_permissions
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated,])
-def reply(request):
+def replyJjokji(request):
     message = request.DATA.get('message')
     reg_id = request.DATA.get('reg_id')
 
