@@ -6,6 +6,8 @@ from rest_framework import viewsets, status, mixins, generics, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 
+from gcm import GCM
+
 from wl import models, serializers, custom_permissions
 
 # class OwlUserMe(generics.RetrieveUpdateAPIView):
@@ -66,12 +68,8 @@ def sendJjokji(request):
     locations = models.Location.objects.filter(content_type=contentType)
 
     for i in locations:
-        import ipdb; ipdb.set_trace()
         if str('%.3f'%float(i.latitude)) == str('%.3f'%float(location.latitude)):
             if str('%.3f'%float(i.longitude)) == str('%.3f'%float(location.longitude)):
-
-                from gcm import GCM
-
                 data = {'reg_id': jjokji.writer.gcmId,
                         'message': jjokji.contents}
                 gcm.plaintext_request(
