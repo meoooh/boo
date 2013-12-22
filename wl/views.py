@@ -66,9 +66,10 @@ def sendJjokji(request):
     locations = models.Location.objects.filter(content_type=contentType)
 
     for i in locations:
+        import ipdb; ipdb.set_trace()
         if i.latitude == float('%.3f'%float(location.latitude)):
             if i.longitude == float('%.3f'%float(location.longitude)):
-                import ipdb; ipdb.set_trace()
+
                 from gcm import GCM
 
                 data = {'reg_id': jjokji.writer.gcmId,
