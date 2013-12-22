@@ -52,8 +52,9 @@ def sendJjokji(request):
         return Response(status=400)
 
     try:
-        location = models.Location.objects.create(latitude=latitude, longitude=longitude,
-                                content_object=booeonglee)
+        location = models.Location.objects.create(latitude=latitude,
+                                                longitude=longitude,
+                                                content_object=booeonglee)
     except:
         return Response(status=400)
 
@@ -79,14 +80,16 @@ def sendJjokji(request):
                 gcm.plaintext_request(
                     registration_id=i.content_object.gcmId, data=data
                 )
-
-                booeonglee = i.content_object.booeonglee_set.filter(
-                    houseofbooeonglee__purposeOfUse=1
-                ).filter(houseofbooeonglee__state=0)[0]
+                try:
+                    booeonglee = i.content_object.booeonglee_set.filter(
+                        houseofbooeonglee__purposeOfUse=1
+                    ).filter(houseofbooeonglee__state=0)[0]
+                except:
+                    return Response(status=400)
 
                 return Response(status=204)
 
-    return Response(status=203)
+    return Response(status=400)
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated,])
