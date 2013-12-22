@@ -78,7 +78,9 @@ def sendJjokji(request):
                     registration_id=i.content_object.gcmId, data=data
                 )
 
-    return Response(status=204)
+                return Response(status=204)
+
+    return Response(status=203)
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated,])
