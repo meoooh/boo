@@ -32,7 +32,7 @@ def replyJjokji(request):
     data = {'reg_id': reg_id,
             'message': (jjokji.contents).encode('utf8')}
     gcm.plaintext_request(
-        registration_id=i.content_object.gcmId, data=data
+        registration_id=request.user.gcmId, data=data
     )
 
     return Response(status=204)
