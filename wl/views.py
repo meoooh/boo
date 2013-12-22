@@ -39,7 +39,7 @@ def sendJjokji(request):
     message = request.DATA.get('message')
     latitude = request.DATA.get('latitude')
     longitude = request.DATA.get('longitude')
-    import ipdb; ipdb.set_trace()
+
     try:
         booeonglee = request.user.booeonglee_set.filter(
             houseofbooeonglee__purposeOfUse=0
