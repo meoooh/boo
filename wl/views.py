@@ -18,6 +18,8 @@ from wl import models, serializers, custom_permissions
 #     def get_object(self):
 #         return self.request.user
 
+API_KEY = 'AIzaSyDAF3IRxpoDYLENrpEYhIHJwZ2w13QO07Q'
+
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated,])
 def replyJjokji(request):
@@ -26,7 +28,7 @@ def replyJjokji(request):
 
     jjokji = request.user.jjokji_set.create(contents=message)
 
-    from gcm import GCM
+    gcm = GCM(API_KEY)
     data = {'reg_id': reg_id,
             'message': (jjokji.contents).encode('utf8')}
     gcm.plaintext_request(
@@ -73,10 +75,14 @@ def sendJjokji(request):
                 data = {'reg_id': jjokji.writer.gcmId,
                         'message': (jjokji.contents).encode('utf8')}
 
-                gcm = GCM('AIzaSyDAF3IRxpoDYLENrpEYhIHJwZ2w13QO07Q')
+                gcm = GCM(API_KEY)
                 gcm.plaintext_request(
                     registration_id=i.content_object.gcmId, data=data
                 )
+
+                booeonglee = i.content_object.booeonglee_set.filter(
+                    houseofbooeonglee__purposeOfUse=1
+                ).filter(houseofbooeonglee__state=0)[0]
 
                 return Response(status=204)
 
@@ -128,9 +134,7 @@ class OwlUserViewSet(viewsets.ModelViewSet):
                                                     owner=booeonglee)
 
         for i in xrange(2):
-            booeonglee = obj.booeonglee_set.create()
-            models.HouseOfBooeonglee.objects.create(purposeOfUse=1, state=0,
-                                                    owner=booeonglee)
+            models.HouseOfBooeonglee.objects.create(purposeOfUse=1, state=0)
 
         return super(OwlUserViewSet, self).post_save(obj, created)
 
