@@ -68,7 +68,9 @@ def sendJjokji(request):
     houseofbooeonglee.save()
 
     contentType = ContentType.objects.get(name='owl user')
-    locations = models.Location.objects.filter(content_type=contentType)
+    locations = models.Location.objects.filter(
+        content_type=contentType
+    ).order_by('?')
 
     for i in locations:
         if str('%.3f'%float(i.latitude)) == str('%.3f'%float(location.latitude)):
