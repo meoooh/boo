@@ -71,7 +71,7 @@ def sendJjokji(request):
         if str('%.3f'%float(i.latitude)) == str('%.3f'%float(location.latitude)):
             if str('%.3f'%float(i.longitude)) == str('%.3f'%float(location.longitude)):
                 data = {'reg_id': jjokji.writer.gcmId,
-                        'message': jjokji.contents}
+                        'message': (jjokji.contents).encode('utf8')}
 
                 gcm = GCM('AIzaSyDAF3IRxpoDYLENrpEYhIHJwZ2w13QO07Q')
                 gcm.plaintext_request(
