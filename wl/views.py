@@ -72,6 +72,7 @@ def sendJjokji(request):
             if str('%.3f'%float(i.longitude)) == str('%.3f'%float(location.longitude)):
                 data = {'reg_id': jjokji.writer.gcmId,
                         'message': jjokji.contents}
+                import ipdb; ipdb.set_trace()
                 gcm.plaintext_request(
                     registration_id=i.content_object.gcmId, data=data
                 )
