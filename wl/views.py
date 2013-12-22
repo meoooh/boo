@@ -28,7 +28,7 @@ def replyJjokji(request):
 
     from gcm import GCM
     data = {'reg_id': reg_id,
-            'message': jjokji.contents}
+            'message': (jjokji.contents).encode('utf8')}
     gcm.plaintext_request(
         registration_id=i.content_object.gcmId, data=data
     )
