@@ -67,8 +67,8 @@ def sendJjokji(request):
 
     for i in locations:
         import ipdb; ipdb.set_trace()
-        if str(i.latitude) == str('%.3f'%float(location.latitude)):
-            if str(i.longitude) == str('%.3f'%float(location.longitude)):
+        if str('%.3f'%float(i.latitude)) == str('%.3f'%float(location.latitude)):
+            if str('%.3f'%float(i.longitude)) == str('%.3f'%float(location.longitude)):
 
                 from gcm import GCM
 
