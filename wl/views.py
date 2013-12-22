@@ -80,12 +80,6 @@ def sendJjokji(request):
                 gcm.plaintext_request(
                     registration_id=i.content_object.gcmId, data=data
                 )
-                try:
-                    booeonglee = i.content_object.booeonglee_set.filter(
-                        houseofbooeonglee__purposeOfUse=1
-                    ).filter(houseofbooeonglee__state=0)[0]
-                except:
-                    return Response(status=400)
 
                 return Response(status=204)
 
